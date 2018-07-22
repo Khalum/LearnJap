@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LearnJap</string>
+    <string name="tab_text_1">N5</string>
+    <string name="tab_text_2">N4</string>
+    <string name="tab_text_3">N3</string>
+    <string name="tab_text_4">N2</string>
+    <string name="tab_text_5">N1</string>
+    <string name="KanVoc">Kanji -> Word</string>
+    <string name="VocKan">Word -> Kanji</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="action_settings">Settings</string>
+</resources>

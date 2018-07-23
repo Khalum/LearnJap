@@ -3,8 +3,10 @@ package rutz.de.learnjap.android
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import rutz.de.learnjap.ENUMS.Modus
 import rutz.de.learnjap.ENUMS.VocabInformation
 import rutz.de.learnjap.R
@@ -28,6 +30,8 @@ class QuizSite : AppCompatActivity() {
     private var currentTopicObject: InfoObject?=null
     private var correctCount:Int=0
     private var wrongCount:Int=0
+
+    private var sizeSet=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +71,7 @@ class QuizSite : AppCompatActivity() {
                 }else{
                     wrongCount++
                     (findViewById(R.id.wrong) as TextView).text=wrongCount.toString()
+                    Toast.makeText(applicationContext,"Richtige Antwort: ${(topic!!.text)} = $correctAnswer",Toast.LENGTH_SHORT).show()
                 }
                 nextRound()
             })
@@ -95,8 +100,9 @@ class QuizSite : AppCompatActivity() {
 
             while(answerCount<=CARDS){
                 rnd = Random().nextInt(fullKanjis!!.size)
-                if(!answerList.contains(fullKanjis!![rnd].meaning!![0])){
-                    answerList.add(fullKanjis!![rnd].meaning!![0])
+                var answer=fullKanjis!![rnd].meaning!![0]
+                if(!answerList.contains(answer) && !answer.equals(correctAnswer)){
+                    answerList.add(answer)
                     answerCount++
                 }
             }
@@ -115,6 +121,11 @@ class QuizSite : AppCompatActivity() {
     }
 
     private fun startMeaningKanji(){
+        if(sizeSet==false){
+            textViews.forEach {textView->
+                textView.textSize=40f
+            }
+        }
         if (kanjis!!.size > 0) {
             var answerList:ArrayList<String> = ArrayList()
             var answerCount:Int=0
@@ -130,8 +141,9 @@ class QuizSite : AppCompatActivity() {
 
             while(answerCount<=CARDS){
                 rnd = Random().nextInt(fullKanjis!!.size)
-                if(!answerList.contains(fullKanjis!![rnd].character)){
-                    answerList.add(fullKanjis!![rnd].character!!)
+                var answer=fullKanjis!![rnd].character!!
+                if(!answerList.contains(answer)&& !answer.equals(correctAnswer)){
+                    answerList.add(answer)
                     answerCount++
                 }
             }
